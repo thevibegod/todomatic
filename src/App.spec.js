@@ -1,9 +1,10 @@
 /* eslint-disable testing-library/prefer-screen-queries */
-import { fireEvent, render } from "@testing-library/react";
+import { findByTestId, fireEvent, getByTestId, render, waitFor } from "@testing-library/react";
 import React from "react";
 import TASKS from "./taskData";
 import App from "./App";
 import { nanoid } from "nanoid";
+import userEvent from "@testing-library/user-event";
 
 describe("Testing basic rendering of App Component", () => {
 
@@ -62,6 +63,16 @@ describe("Testing basic functionality of App Component", () => {
         const view = render(<App tasks={[{ id: taskId, text: "Hello World", completed: false }]} />);
         view.getByTestId(`todo-del-btn-${taskId}`).click();
         expect(view.getByTestId("tasks-count")).toHaveTextContent("0 tasks remaining");
+    });
+
+    it("Update a todo.", async () => {
+        const taskId = nanoid();
+        const view = render(<App tasks={[{ id: taskId, text: "Hello World", completed: false }]} />);
+        view.getByTestId(`todo-edit-btn-${taskId}`).click();
+        userEvent.type(view.getByTestId("update-box"),"Hello World2");
+        view.getByTestId("update-submit-btn").click();
+        expect(view.getByTestId(`todo-text-${taskId}`)).toHaveTextContent("Hello World2");
+       
     });
 
 });

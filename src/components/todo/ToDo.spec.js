@@ -8,8 +8,8 @@ describe("Testing basic rendering of ToDo Component",()=>{
     it("Can display todo text",()=>
     {
         const hello = "Hello";
-        const view = render(<ToDo text={hello}/>);
-        expect(view.getByTestId("todo-text")).toHaveTextContent(hello);
+        const view = render(<ToDo text={hello} id="1"/>);
+        expect(view.getByTestId(`todo-text-${1}`)).toHaveTextContent(hello);
     });
 
     it("Can render checkbox with checked attribute",()=>{
@@ -19,7 +19,7 @@ describe("Testing basic rendering of ToDo Component",()=>{
 
     it("Can render edit and delete clickable buttons",()=>{
         const {getByTestId} = render(<ToDo id="1"/>);
-        expect(getByTestId("edit-btn")).not.toHaveAttribute("disabled");
+        expect(getByTestId("todo-edit-btn-1")).not.toHaveAttribute("disabled");
         expect(getByTestId("todo-del-btn-1")).not.toHaveAttribute("disabled");
     });
 

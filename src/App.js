@@ -26,6 +26,16 @@ const App = (props) => {
     setTasks(modifiedTasks);
   }
 
+  const updateTask = (id,name) => {
+    const updatedTasks = tasks.map(task => {
+      if (task.id === id) {
+        return { ...task, text: name };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+  }
+
   const [tasks, setTasks] = useState(props.tasks || []);
   return (
     <div className="todoapp stack-large">
@@ -46,7 +56,8 @@ const App = (props) => {
         data-testid="todo-list"
       >
         {tasks.map(task => {
-          return <ToDo text={task.text} completed={task.completed} id={task.id} key={task.id} toggleTask={toggleTask} deleteTask={deleteTask} />
+          return <ToDo text={task.text} completed={task.completed} id={task.id} key={task.id}
+           toggleTask={toggleTask} deleteTask={deleteTask} updateTask={updateTask}/>
         })}
       </ul>
     </div>);
