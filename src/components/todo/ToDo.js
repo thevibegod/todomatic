@@ -1,8 +1,9 @@
 const ToDo = (props)=>{
+
     return (
-        <li className="todo stack-small">
+        <li data-testid={"todo-"+props.id} className="todo stack-small">
         <div className="c-cb">
-          <input id="todo-0" type="checkbox" data-testid="checkbox" defaultChecked={props.checked} />
+          <input id={"todo-"+props.id} data-testid={"todo-checkbox-"+props.id} type="checkbox"  onChange={()=>props.toggleTask(props.id)} defaultChecked={props.completed} />
           <label className="todo-label" data-testid="todo-text" htmlFor="todo-0">
             {props.text}
           </label>
@@ -11,7 +12,7 @@ const ToDo = (props)=>{
           <button type="button" data-testid="edit-btn" className="btn">
             Edit <span className="visually-hidden">Eat</span>
           </button>
-          <button type="button" data-testid="del-btn" className="btn btn__danger">
+          <button type="button" data-testid={"todo-del-btn-"+props.id} onClick={()=>props.deleteTask(props.id)} className="btn btn__danger">
             Delete <span className="visually-hidden">Eat</span>
           </button>
         </div>

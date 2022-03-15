@@ -1,6 +1,14 @@
-const Form = () => {
+import { useState } from "react";
+
+const Form = (props) => {
+  const [data,setData] = useState('');
+  const onClickHandler = (event) => {
+    event.preventDefault();
+    props.addTaskHandler(data);
+    setData('');
+  } 
   return (
-    <form>
+    <form data-testid="form">
       <h2 className="label-wrapper">
         <label htmlFor="new-todo-input" className="label__lg">
           What needs to be done?
@@ -13,8 +21,9 @@ const Form = () => {
         name="text"
         autoComplete="off"
         data-testid="form-textbox"
+        onChange={(event)=>setData(event.target.value)}
       />
-      <button type="submit" className="btn btn__primary btn__lg" data-testid="add-btn">
+      <button type="submit" className="btn btn__primary btn__lg" onClick={onClickHandler} data-testid="add-btn">
         Add
       </button>
     </form>

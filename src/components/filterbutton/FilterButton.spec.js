@@ -14,7 +14,7 @@ describe("Testing basic rendering of FilterButton Component",()=>{
     it("Is clickable and aria-pressable",()=>
     {
         const value = "Active";
-        const view = render(<FilterButton value={value} ariaPressable={true}/>);
+        const view = render(<FilterButton value={value} ariaPressed={true}/>);
         expect(view.getByTestId("filter-btn")).toHaveAttribute("aria-pressed","true");
         expect(view.getByTestId("filter-btn")).not.toBeDisabled();
     });

@@ -1,19 +1,43 @@
+import { nanoid } from "nanoid";
+import { useState } from "react";
 import FilterButton from "./components/filterbutton/FilterButton";
 import Form from "./components/form/Form";
 import ToDo from "./components/todo/ToDo";
 
-const App = () => {
+const App = (props) => {
+
+  const toggleTask = (id) => {
+    const updatedTasks = tasks.map(task => {
+      if (task.id === id) {
+        return { ...task, completed: !task.completed };
+      }
+      return task;
+    });
+    setTasks(updatedTasks);
+  }
+
+  const addTask = (data) => {
+    let task = {id:nanoid(),text:data,completed:false};
+    setTasks([...tasks,task]);
+  }
+
+  const deleteTask = (id) => {
+    const modifiedTasks = tasks.filter(task=>task.id !== id);
+    setTasks(modifiedTasks);
+  }
+
+  const [tasks, setTasks] = useState(props.tasks || []);
   return (
     <div className="todoapp stack-large">
       <h1 data-testid="title">TodoMatic</h1>
-      <Form/>
+      <Form addTaskHandler={addTask}/>
       <div className="filters btn-group stack-exception" data-testid="filter-btn-grp">
         <FilterButton ariaPressed={true} value="All" />
         <FilterButton ariaPressed={false} value="Active" />
         <FilterButton ariaPressed={false} value="Completed" />
       </div>
-      <h2 id="list-heading">
-        3 tasks remaining
+      <h2 data-testid="tasks-count" id="list-heading">
+        {tasks.length === 1 ? '1 task remaining' : `${tasks.length} tasks remaining`}
       </h2>
       <ul
         role="list"
@@ -21,9 +45,9 @@ const App = () => {
         aria-labelledby="list-heading"
         data-testid="todo-list"
       >
-        <ToDo checked={true} text="Eat" />
-        <ToDo checked={false} text="Sleep" />
-        <ToDo checked={false} text="Repeat" />
+        {tasks.map(task => {
+          return <ToDo text={task.text} completed={task.completed} id={task.id} key={task.id} toggleTask={toggleTask} deleteTask={deleteTask} />
+        })}
       </ul>
     </div>);
 }

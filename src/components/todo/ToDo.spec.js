@@ -13,14 +13,14 @@ describe("Testing basic rendering of ToDo Component",()=>{
     });
 
     it("Can render checkbox with checked attribute",()=>{
-        const {getByTestId} = render(<ToDo checked={true}/>);
-        expect(getByTestId("checkbox")).toBeChecked();
+        const {getByTestId} = render(<ToDo id="1" completed={true}/>);
+        expect(getByTestId("todo-checkbox-1")).toBeChecked();
     });
 
     it("Can render edit and delete clickable buttons",()=>{
-        const {getByTestId} = render(<ToDo/>);
+        const {getByTestId} = render(<ToDo id="1"/>);
         expect(getByTestId("edit-btn")).not.toHaveAttribute("disabled");
-        expect(getByTestId("del-btn")).not.toHaveAttribute("disabled");
+        expect(getByTestId("todo-del-btn-1")).not.toHaveAttribute("disabled");
     });
 
 });
