@@ -3,11 +3,11 @@ import { useState } from "react";
 const ToDo = (props) => {
 
   const [isEditing, setIsEditing] = useState(false);
-  const [data,setData] = useState('');
+  const [data, setData] = useState('');
 
   const handleSubmit = event => {
     event.preventDefault();
-    props.updateTask(props.id,data);
+    props.updateTask(props.id, data);
     setData('');
     setIsEditing(false);
   }
@@ -45,7 +45,7 @@ const ToDo = (props) => {
         </label>
       </div>
       <div className="btn-group">
-        <button type="button" data-testid={"todo-edit-btn-" + props.id} className="btn" onClick={()=>setIsEditing(true)}> 
+        <button type="button" data-testid={"todo-edit-btn-" + props.id} className="btn" onClick={() => setIsEditing(true)}>
           Edit <span className="visually-hidden">  {props.text}</span>
         </button>
         <button type="button" data-testid={"todo-del-btn-" + props.id} onClick={() => props.deleteTask(props.id)} className="btn btn__danger">

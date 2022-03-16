@@ -1,5 +1,5 @@
 /* eslint-disable testing-library/prefer-screen-queries */
-import { findByTestId, fireEvent, getByTestId, render, waitFor } from "@testing-library/react";
+import { render } from "@testing-library/react";
 import React from "react";
 import TASKS from "./taskData";
 import App from "./App";
@@ -69,10 +69,25 @@ describe("Testing basic functionality of App Component", () => {
         const taskId = nanoid();
         const view = render(<App tasks={[{ id: taskId, text: "Hello World", completed: false }]} />);
         view.getByTestId(`todo-edit-btn-${taskId}`).click();
-        userEvent.type(view.getByTestId("update-box"),"Hello World2");
+        userEvent.type(view.getByTestId("update-box"), "Hello World2");
         view.getByTestId("update-submit-btn").click();
         expect(view.getByTestId(`todo-text-${taskId}`)).toHaveTextContent("Hello World2");
-       
+
     });
 
+});
+
+describe("Testing filter functionality of App Component", () => {
+    it("Create an active task and check completed", () => {
+        const taskId = nanoid();
+        const view = render(<App tasks={[{ id: taskId, text: "Hello World", completed: false }]} />);
+        view.getByTestId("filter-btn-Completed").click();
+        expect(view.getByTestId("tasks-count")).toHaveTextContent("0 tasks remaining");
+    });
+    it("Create an completed task and check completed", () => {
+        const taskId = nanoid();
+        const view = render(<App tasks={[{ id: taskId, text: "Hello World", completed: true }]} />);
+        view.getByTestId("filter-btn-Completed").click();
+        expect(view.getByTestId("tasks-count")).toHaveTextContent("1 task remaining");
+    })
 });

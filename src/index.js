@@ -7,7 +7,7 @@ import TASKS from './taskData';
 
 ReactDOM.render(
   <React.StrictMode>
-    <App tasks={TASKS}/>
+    <App tasks={TASKS} />
   </React.StrictMode>,
   document.getElementById('root')
 );

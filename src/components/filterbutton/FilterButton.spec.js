@@ -2,21 +2,19 @@
 import { render } from "@testing-library/react";
 import React from "react";
 import FilterButton from "./FilterButton";
-describe("Testing basic rendering of FilterButton Component",()=>{
+describe("Testing basic rendering of FilterButton Component", () => {
 
-    it("Displays filter text",()=>
-    {
+    it("Displays filter text", () => {
         const value = "Active";
-        const view = render(<FilterButton value={value}/>);
+        const view = render(<FilterButton value={value} />);
         expect(view.getByTestId("filter-text")).toHaveTextContent(value);
     });
 
-    it("Is clickable and aria-pressable",()=>
-    {
+    it("Is clickable and aria-pressable", () => {
         const value = "Active";
-        const view = render(<FilterButton value={value} ariaPressed={true}/>);
-        expect(view.getByTestId("filter-btn")).toHaveAttribute("aria-pressed","true");
-        expect(view.getByTestId("filter-btn")).not.toBeDisabled();
+        const view = render(<FilterButton value={value} ariaPressed={true} />);
+        expect(view.getByTestId(`filter-btn-${value}`)).toHaveAttribute("aria-pressed", "true");
+        expect(view.getByTestId(`filter-btn-${value}`)).not.toBeDisabled();
     });
 });
 

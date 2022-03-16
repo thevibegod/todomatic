@@ -1,12 +1,12 @@
 import { useState } from "react";
 
 const Form = (props) => {
-  const [data,setData] = useState('');
+  const [data, setData] = useState('');
   const onClickHandler = (event) => {
     event.preventDefault();
     props.addTaskHandler(data);
     setData('');
-  } 
+  }
   return (
     <form data-testid="form">
       <h2 className="label-wrapper">
@@ -21,7 +21,7 @@ const Form = (props) => {
         name="text"
         autoComplete="off"
         data-testid="form-textbox"
-        onChange={(event)=>setData(event.target.value)}
+        onChange={(event) => setData(event.target.value)}
       />
       <button type="submit" className="btn btn__primary btn__lg" onClick={onClickHandler} data-testid="add-btn">
         Add
